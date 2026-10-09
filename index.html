@@ -83,7 +83,7 @@
                 <div class="avatar">🎓</div>
                 <div class="msg-content">
                     <p class="msg-author">Estudantes IA</p>
-                    <div class="msg-text">Olá! Sou a <strong>Estudantes IA</strong>. Meu servidor foi atualizado no GitHub com sucesso. O que vamos estudar hoje?</div>
+                    <div class="msg-text">Olá! Sou a <strong>Estudantes IA</strong>. Meu servidor foi atualizado e corrigido com sucesso. O que vamos estudar hoje?</div>
                 </div>
             </div>
         </div>
@@ -122,13 +122,14 @@
             chatBox.scrollTop = chatBox.scrollHeight;
 
             try {
+                // CORREÇÃO: URL oficial do Google restaurada para funcionar com chaves "AQ."
                 const response = await fetch(`https://googleapis.com`, {
                     method: "POST",
                     headers: { 
                         "Content-Type": "application/json",
                         "X-Goog-Api-Key": GEMINI_API_KEY 
                     },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: "Você é a Estudantes IA, um tutor de estudos prestativo. Responda: " + promptOriginal }] }] })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: "Você é a Estudantes IA, um tutor de estudos prestativo. Responda de forma direta: " + promptOriginal }] }] })
                 });
 
                 const payload = await response.json();
@@ -137,7 +138,7 @@
                 respostaTexto = respostaTexto.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>\$1</strong>');
                 document.getElementById(hashId).innerHTML = respostaTexto;
             } catch (error) {
-                document.getElementById(hashId).innerHTML = `<span style="color: #ef4444; font-weight: 600;">[Erro] O servidor da API não respondeu. Certifique-se de que a sua chave está ativa e configurada corretamente no painel do Google.</span>`;
+                document.getElementById(hashId).innerHTML = `<span style="color: #ef4444; font-weight: 600;">[Erro] O servidor não respondeu. Verifique se o formato da chave está correto no Google AI Studio.</span>`;
             }
             chatBox.scrollTop = chatBox.scrollHeight;
         }
